@@ -3,10 +3,10 @@
 // `datetime-local` sejam interpretadas corretamente como horário local.
 date_default_timezone_set('Europe/Lisbon');
 
-$host = "sql112.infinityfree.com";
-$user = "if0_42259892";
-$pass = "Incorreta1212";
-$dbname = "if0_42259892_smart_rega";
+$host = "oculto por razões de segurança";
+$user = "oculto por razões de segurança";
+$pass = "oculto por razões de segurança";
+$dbname = "oculto por razões de segurança";
 
 $conn = new mysqli($host, $user, $pass, $dbname);
 
