@@ -113,10 +113,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
 
             <div id="g_id_onload"
-                 data-client_id="907180799619-ca0linjn5ollugsc3j2jga8q6hhje2qi.apps.googleusercontent.com"
+                 data-client_id="tapado_por_segurança.apps.googleusercontent.com"
                  data-context="signin"
                  data-ux_mode="popup"
-                 data-login_uri="http://localhost/SITE_PAP/google-callback.php"
+                 data-login_uri="https://smartrega-afonso.fwh.is/google-callback.php"
                  data-auto_prompt="false">
             </div>
             <div class="g_id_signin"
