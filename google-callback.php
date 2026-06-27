@@ -15,7 +15,7 @@ $id_token = $_POST['credential'];
 // Em vez de apenas descodificar o JWT cegamente,
 // pedimos ao Google para confirmar que o token é válido.
 // ==========================================
-$client_id = "907180799619-ca0linjn5ollugsc3j2jga8q6hhje2qi.apps.googleusercontent.com";
+$client_id = "tapado_por_segurança.apps.googleusercontent.com";
 
 $verify_url = "https://oauth2.googleapis.com/tokeninfo?id_token=" . urlencode($id_token);
 $response = file_get_contents($verify_url);
@@ -54,7 +54,7 @@ $stmt->close();
 
 if ($result->num_rows > 0) {
     $user = $result->fetch_assoc();
-    
+
     // Se o utilizador já existia por email mas não tinha o google_id guardado, atualizamos agora
     if (empty($user['google_id'])) {
         $update = "UPDATE users SET google_id = ? WHERE id_utilizador = ?";
@@ -70,7 +70,7 @@ if ($result->num_rows > 0) {
     $stmt_ins = $conn->prepare($sql_ins);
     $stmt_ins->bind_param("sss", $g_id, $nome, $email);
     $stmt_ins->execute();
-    
+
     $id_novo = $conn->insert_id;
     $stmt_ins->close();
     $user = [
@@ -82,10 +82,15 @@ if ($result->num_rows > 0) {
 }
 
 // 5. Iniciar Sessão
+session_regenerate_id(true);
 $_SESSION["user_id"] = $user["id_utilizador"];
 $_SESSION["nome"]    = $user["nome_utilizador"];
 $_SESSION["tipo"]    = $user["tipo_utilizador"];
 
+// O Google Identity Services está a fazer um POST direto (navegação completa
+// da página) para este endpoint, em vez de chamar o callback JavaScript.
+// Por isso, fazemos nós mesmos o redirect para a dashboard aqui no PHP,
+// garantindo que o utilizador chega lá independentemente do modo usado pelo Google.
 header("Location: dashboard.php");
 exit;
 ?>
